@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queque de Sangrecita</title>
+<style>
+  :root{
+    --cacao-950:#1E0F0C;
+    --cacao-900:#2E1512;
+    --cacao-800:#4A1B15;
+    --cacao-700:#5E2E1E;
+    --cacao-600:#7A2E24;
+    --cacao-500:#8C4A32;
+    --sangre-500:#B23A2E;
+    --sangre-400:#C9463A;
+    --sangre-300:#E06B54;
+    --crema-300:#F4E0A8;
+    --crema-500:#E8C77A;
+    --crema-700:#C79A4B;
+    --text-soft:#E9DCC9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--cacao-950);
+    color: var(--text-soft);
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:0 24px;}
+
+  /* Encabezado */
+  header{
+    padding:20px 0;
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid rgba(232,199,122,0.15);
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand-mark{
+    width:40px; height:40px; border-radius:10px;
+    background: linear-gradient(160deg, var(--cacao-700), var(--cacao-900));
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .brand-mark::after{
+    content:"";
+    width:10px; height:14px;
+    background: var(--sangre-400);
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(45deg);
+  }
+  .brand-name{
+    font-family:'Trebuchet MS', sans-serif;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-size:14px;
+    color:var(--crema-300);
+  }
+  nav a{
+    color:var(--text-soft);
+    text-decoration:none;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:14px;
+    margin-left:22px;
+    opacity:0.8;
+  }
+  nav a:hover{opacity:1;}
+
+  /* Hero */
+  .hero{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    padding:64px 0 56px;
+  }
+  .hero-eyebrow{
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sangre-300);
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(34px, 5vw, 52px);
+    line-height:1.08;
+    color:#fff;
+    margin-bottom:18px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--sangre-400);
+  }
+  .hero p{
+    font-size:17px;
+    color:var(--text-soft);
+    opacity:0.85;
+    max-width:44ch;
+    margin-bottom:28px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Trebuchet MS', sans-serif;
+    font-weight:bold; font-size:15px;
+    padding:14px 24px; border-radius:8px;
+    text-decoration:none;
+    transition: transform 0.15s ease;
+  }
+  .btn:hover{transform: translateY(-2px);}
+  .btn-primary{
+    background: linear-gradient(180deg, #3EA857, #2E8A44);
+    color:#fff;
+  }
+  .btn-secondary{
+    background: transparent;
+    border:1px solid rgba(232,199,122,0.4);
+    color: var(--crema-300);
+  }
+  .hero-photo{
+    position:relative;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+    aspect-ratio: 4/5;
+  }
+  .hero-photo img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .price-tag{
+    position:absolute;
+    bottom:16px; left:16px;
+    background: rgba(30,15,12,0.85);
+    backdrop-filter: blur(4px);
+    border:1px solid var(--crema-500);
+    color:var(--crema-300);
+    font-family:'Trebuchet MS', sans-serif;
+    padding:10px 16px;
+    border-radius:10px;
+    font-size:14px;
+  }
+  .price-tag strong{
+    display:block;
+    font-family:'Georgia', serif;
+    font-size:22px;
+    color:#fff;
+  }
+
+  /* Sección Menú */
+  section{padding:56px 0;}
+  .section-title{
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sangre-300);
+    margin-bottom:10px;
+  }
+  .section-heading{
+    font-size:30px;
+    color:#fff;
+    margin-bottom:32px;
+    max-width:34ch;
+  }
+
+  .menu-card{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px;
+    background: linear-gradient(135deg, var(--cacao-800), var(--cacao-900));
+    border:1px solid rgba(232,199,122,0.15);
+    border-radius:14px;
+    padding:26px 28px;
+  }
+  .menu-card-info h3{
+    font-size:22px;
+    color:#fff;
+    margin-bottom:6px;
+  }
+  .menu-card-info p{
+    font-size:14px;
+    color:var(--text-soft);
+    opacity:0.75;
+    max-width:40ch;
+  }
+  .menu-price{
+    font-family:'Trebuchet MS', sans-serif;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .menu-price .amount{
+    font-family:'Georgia', serif;
+    font-size:32px;
+    color:var(--crema-300);
+    display:block;
+  }
+  .menu-price .unit{
+    font-size:12px;
+    opacity:0.7;
+  }
+
+  /* Galería */
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:16px;
+  }
+  .gallery img{
+    width:100%; height:280px; object-fit:cover;
+    border-radius:14px;
+    border:1px solid rgba(232,199,122,0.15);
+  }
+  .gallery figcaption{
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:12px;
+    color:var(--text-soft);
+    opacity:0.6;
+    margin-top:8px;
+  }
+
+  /* Contacto */
+  .contact-card{
+    background: linear-gradient(160deg, var(--cacao-800), var(--cacao-950));
+    border:1px solid rgba(232,199,122,0.18);
+    border-radius:18px;
+    padding:44px;
+    display:grid;
+    grid-template-columns: 1fr auto;
+    align-items:center;
+    gap:24px;
+  }
+  .contact-card h2{
+    font-size:26px;
+    color:#fff;
+    margin-bottom:10px;
+  }
+  .contact-card p{
+    font-size:15px;
+    opacity:0.8;
+    max-width:40ch;
+  }
+  .contact-details{
+    margin-top:16px;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:14px;
+    color:var(--crema-300);
+  }
+  .contact-details div{margin-bottom:6px;}
+
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:12px;
+    color:var(--text-soft);
+    opacity:0.5;
+  }
+
+  @media (max-width: 760px){
+    .hero{grid-template-columns:1fr; padding-top:36px;}
+    .hero-photo{order:-1; aspect-ratio:4/3;}
+    .gallery{grid-template-columns:1fr;}
+    .contact-card{grid-template-columns:1fr; text-align:left;}
+    .menu-card{flex-direction:column; align-items:flex-start; gap:14px;}
+    .menu-price{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <span class="brand-name">Queque de Sangrecita</span>
+    </div>
+    <nav>
+      <a href="#menu">Menú</a>
+      <a href="#galeria">Fotos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">Hecho a pedido · Casero</div>
+      <h1>El clásico queque de <em>sangrecita</em>, húmedo y con sabor de verdad.</h1>
+      <p>Horneado por encargo en molde entero, con esa miga oscura y densa que solo da la receta tradicional. Entrega a domicilio en Tumpa.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://wa.me/51925087605?text=Hola%2C%20quiero%20pedir%20un%20Queque%20de%20Sangrecita" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        <a class="btn btn-secondary" href="#menu">Ver precio</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="fotos/queque-corte.jpg" alt="Queque de sangrecita cortado, mostrando su miga oscura y húmeda">
+      <div class="price-tag">Queque entero<strong>S/ 25</strong></div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="section-title">Pedido</div>
+    <h2 class="section-heading">Un solo tamaño, hecho para compartir</h2>
+    <div class="menu-card">
+      <div class="menu-card-info">
+        <h3>Queque de sangrecita entero</h3>
+        <p>Horneado el mismo día del pedido. Ideal para la familia o para compartir en una reunión.</p>
+      </div>
+      <div class="menu-price">
+        <span class="amount">S/ 25</span>
+        <span class="unit">por unidad entera</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria">
+    <div class="section-title">Así se ve</div>
+    <h2 class="section-heading">Recién horneado, listo para servir</h2>
+    <div class="gallery">
+      <figure>
+        <img src="fotos/queque-entero.jpg" alt="Queque de sangrecita entero, recién desmoldado">
+        <figcaption>Recién desmoldado</figcaption>
+      </figure>
+      <figure>
+        <img src="fotos/queque-corte.jpg" alt="Queque de sangrecita cortado mostrando la miga">
+        <figcaption>Corte mostrando la miga</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="contact-card">
+      <div>
+        <h2>Haz tu pedido</h2>
+        <p>Escríbenos por WhatsApp para coordinar tu pedido y la entrega a domicilio.</p>
+        <div class="contact-details">
+          <div>📱 WhatsApp: 925 087 605</div>
+          <div>🚚 Entrega a domicilio en Tumpa</div>
+        </div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/51925087605?text=Hola%2C%20quiero%20pedir%20un%20Queque%20de%20Sangrecita" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </section>
+
+  <footer>
+    Queque de Sangrecita · Hecho a pedido en Tumpa
+  </footer>
+</div>
+
+</body>
+</html>
