@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queque de Sangrecita</title>
+<style>
+  :root{
+    --cacao-950:#1E0F0C;
+    --cacao-900:#2E1512;
+    --cacao-800:#4A1B15;
+    --cacao-700:#5E2E1E;
+    --cacao-600:#7A2E24;
+    --cacao-500:#8C4A32;
+    --sangre-500:#B23A2E;
+    --sangre-400:#C9463A;
+    --sangre-300:#E06B54;
+    --crema-300:#F4E0A8;
+    --crema-500:#E8C77A;
+    --crema-700:#C79A4B;
+    --text-soft:#E9DCC9;
+    --ok-500:#3EA857;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--cacao-950);
+    color: var(--text-soft);
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:0 24px;}
+
+  header{
+    padding:20px 0;
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid rgba(232,199,122,0.15);
+    flex-wrap:wrap; gap:10px;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand-mark{
+    width:40px; height:40px; border-radius:10px;
+    background: linear-gradient(160deg, var(--cacao-700), var(--cacao-900));
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .brand-mark::after{
+    content:"";
+    width:10px; height:14px;
+    background: var(--sangre-400);
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(45deg);
+  }
+  .brand-name{
+    font-family:'Trebuchet MS', sans-serif;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-size:14px;
+    color:var(--crema-300);
+  }
+  nav{display:flex; flex-wrap:wrap;}
+  nav a{
+    color:var(--text-soft);
+    text-decoration:none;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:14px;
+    margin-left:22px;
+    opacity:0.8;
+  }
+  nav a:hover{opacity:1;}
+
+  .hero{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    padding:64px 0 56px;
+  }
+  .hero-eyebrow{
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sangre-300);
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(34px, 5vw, 52px);
+    line-height:1.08;
+    color:#fff;
+    margin-bottom:18px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--sangre-400);
+  }
+  .hero p{
+    font-size:17px;
+    color:var(--text-soft);
+    opacity:0.85;
+    max-width:44ch;
+    margin-bottom:28px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Trebuchet MS', sans-serif;
+    font-weight:bold; font-size:15px;
+    padding:14px 24px; border-radius:8px;
+    text-decoration:none;
+    transition: transform 0.15s ease;
+    border:none; cursor:pointer;
+  }
+  .btn:hover{transform: translateY(-2px);}
+  .btn-primary{
+    background: linear-gradient(180deg, var(--ok-500), #2E8A44);
+    color:#fff;
+  }
+  .btn-secondary{
+    background: transparent;
+    border:1px solid rgba(232,199,122,0.4);
+    color: var(--crema-300);
+  }
+  .hero-photo{
+    position:relative;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+    aspect-ratio: 4/5;
+  }
+  .hero-photo img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .price-tag{
+    position:absolute;
+    bottom:16px; left:16px;
+    background: rgba(30,15,12,0.85);
+    backdrop-filter: blur(4px);
+    border:1px solid var(--crema-500);
+    color:var(--crema-300);
+    font-family:'Trebuchet MS', sans-serif;
+    padding:10px 16px;
+    border-radius:10px;
+    font-size:14px;
+  }
+  .price-tag strong{
+    display:block;
+    font-family:'Georgia', serif;
+    font-size:22px;
+    color:#fff;
+  }
+
+  section{padding:56px 0;}
+  .section-title{
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sangre-300);
+    margin-bottom:10px;
+  }
+  .section-heading{
+    font-size:30px;
+    color:#fff;
+    margin-bottom:32px;
+    max-width:34ch;
+  }
+
+  .about-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+  }
+  .about-card{
+    background: linear-gradient(135deg, var(--cacao-800), var(--cacao-900));
+    border:1px solid rgba(232,199,122,0.15);
+    border-radius:14px;
+    padding:24px;
+  }
+  .about-card h3{
+    color:var(--crema-300);
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:15px;
+    margin-bottom:10px;
+  }
+  .about-card p{
+    font-size:14px;
+    color:var(--text-soft);
+    opacity:0.8;
+  }
+  .about-note{
+    margin-top:24px;
+    font-size:14px;
+    opacity:0.65;
+    max-width:60ch;
+  }
+
+  .menu-card{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px;
+    background: linear-gradient(135deg, var(--cacao-800), var(--cacao-900));
+    border:1px solid rgba(232,199,122,0.15);
+    border-radius:14px;
+    padding:26px 28px;
+  }
+  .menu-card-info h3{
+    font-size:22px;
+    color:#fff;
+    margin-bottom:6px;
+  }
+  .menu-card-info p{
+    font-size:14px;
+    color:var(--text-soft);
+    opacity:0.75;
+    max-width:40ch;
+  }
+  .menu-price{
+    font-family:'Trebuchet MS', sans-serif;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .menu-price .amount{
+    font-family:'Georgia', serif;
+    font-size:32px;
+    color:var(--crema-300);
+    display:block;
+  }
+  .menu-price .unit{
+    font-size:12px;
+    opacity:0.7;
+  }
+
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:16px;
+  }
+  .gallery img{
+    width:100%; height:280px; object-fit:cover;
+    border-radius:14px;
+    border:1px solid rgba(232,199,122,0.15);
+  }
+  .gallery figcaption{
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:12px;
+    color:var(--text-soft);
+    opacity:0.6;
+    margin-top:8px;
+  }
+
+  .faq{
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .faq-item{
+    background: linear-gradient(135deg, var(--cacao-800), var(--cacao-900));
+    border:1px solid rgba(232,199,122,0.15);
+    border-radius:12px;
+    padding:20px 24px;
+  }
+  .faq-item h3{
+    color:var(--crema-300);
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:15px;
+    margin-bottom:8px;
+  }
+  .faq-item p{
+    font-size:14px;
+    opacity:0.8;
+  }
+
+  .order-card{
+    background: linear-gradient(160deg, var(--cacao-800), var(--cacao-950));
+    border:1px solid rgba(232,199,122,0.18);
+    border-radius:18px;
+    padding:36px;
+  }
+  .order-card h2{
+    font-size:26px;
+    color:#fff;
+    margin-bottom:10px;
+  }
+  .order-card > p{
+    font-size:15px;
+    opacity:0.8;
+    max-width:52ch;
+    margin-bottom:28px;
+  }
+  .order-form{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:16px;
+  }
+  .order-form .full{grid-column: 1 / -1;}
+  .order-form label{
+    display:block;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:12px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--crema-300);
+    margin-bottom:6px;
+  }
+  .order-form input,
+  .order-form select,
+  .order-form textarea{
+    width:100%;
+    background: rgba(30,15,12,0.6);
+    border:1px solid rgba(232,199,122,0.25);
+    border-radius:8px;
+    padding:12px 14px;
+    color:#fff;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:14px;
+  }
+  .order-form input::placeholder,
+  .order-form textarea::placeholder{
+    color: rgba(233,220,201,0.4);
+  }
+  .order-form textarea{resize:vertical; min-height:90px;}
+  .order-form .submit-row{
+    grid-column: 1 / -1;
+    margin-top:8px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .order-note{
+    font-size:12px;
+    opacity:0.6;
+    max-width:46ch;
+  }
+  .contact-alt{
+    margin-top:28px;
+    padding-top:24px;
+    border-top:1px solid rgba(232,199,122,0.15);
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:13px;
+    opacity:0.7;
+  }
+
+  footer{
+    text-align:center;
+    padding:32px 0 48px;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:12px;
+    color:var(--text-soft);
+    opacity:0.5;
+  }
+
+  .cart-fab{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background: linear-gradient(180deg, var(--ok-500), #2E8A44);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 12px 28px -8px rgba(0,0,0,0.6);
+    text-decoration:none;
+    z-index:100;
+    transition: transform 0.15s ease;
+  }
+  .cart-fab:hover{transform: translateY(-3px);}
+  .cart-fab svg{width:26px; height:26px;}
+  .cart-fab .cart-badge{
+    position:absolute;
+    top:-4px; right:-4px;
+    background: var(--sangre-400);
+    color:#fff;
+    font-family:'Trebuchet MS', sans-serif;
+    font-size:11px;
+    font-weight:bold;
+    width:20px; height:20px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid var(--cacao-950);
+  }
+
+  @media (max-width: 760px){
+    .hero{grid-template-columns:1fr; padding-top:36px;}
+    .hero-photo{order:-1; aspect-ratio:4/3;}
+    .about-grid{grid-template-columns:1fr;}
+    .gallery{grid-template-columns:1fr;}
+    .menu-card{flex-direction:column; align-items:flex-start; gap:14px;}
+    .menu-price{text-align:left;}
+    .order-form{grid-template-columns:1fr;}
+    .order-card{padding:24px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <span class="brand-name">Queque de Sangrecita</span>
+    </div>
+    <nav>
+      <a href="#sobre">Sobre el queque</a>
+      <a href="#menu">Menú</a>
+      <a href="#galeria">Fotos</a>
+      <a href="#faq">Preguntas</a>
+      <a href="#pedido">Pedido</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">Hecho a pedido · Casero</div>
+      <h1>El clásico queque de <em>sangrecita</em>, húmedo y con sabor de verdad.</h1>
+      <p>Horneado por encargo en molde entero, con esa miga oscura y densa que solo da la receta tradicional. Entrega a domicilio en Tumpa.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#pedido">Hacer mi pedido</a>
+        <a class="btn btn-secondary" href="#sobre">Conocer más</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="IMG-20260813-WA0035.jpg" alt="Queque de sangrecita cortado, mostrando su miga oscura y húmeda">
+      <div class="price-tag">Queque entero<strong>S/ 25</strong></div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="section-title">Sobre el producto</div>
+    <h2 class="section-heading">¿Qué es el queque de sangrecita?</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Un clásico de la cocina peruana</h3>
+        <p>Es un bizcocho tradicional que lleva sangrecita (sangre de pollo o de res, previamente cocida) mezclada en la masa junto con harina, huevos, mantequilla y especias como canela y clavo. Ese ingrediente le da su color oscuro y su sabor característico.</p>
+      </div>
+      <div class="about-card">
+        <h3>Valorado por su aporte de hierro</h3>
+        <p>La sangrecita es conocida en el Perú por su alto contenido de hierro, por lo que este queque es una forma popular de incorporarla a la dieta familiar de manera rica y sin que se note el sabor fuerte del ingrediente.</p>
+      </div>
+      <div class="about-card">
+        <h3>Textura húmeda y densa</h3>
+        <p>A diferencia de un bizcocho común, su miga queda más compacta y jugosa. Se disfruta solo, con una taza de café o como parte de una lonchera o merienda.</p>
+      </div>
+    </div>
+    <p class="about-note">Cada queque se hornea el mismo día del pedido, con receta casera y horneado en molde entero.</p>
+  </section>
+
+  <section id="menu">
+    <div class="section-title">Pedido</div>
+    <h2 class="section-heading">Un solo tamaño, hecho para compartir</h2>
+    <div class="menu-card">
+      <div class="menu-card-info">
+        <h3>Queque de sangrecita entero</h3>
+        <p>Horneado el mismo día del pedido. Ideal para la familia o para compartir en una reunión.</p>
+      </div>
+      <div class="menu-price">
+        <span class="amount">S/ 25</span>
+        <span class="unit">por unidad entera</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria">
+    <div class="section-title">Así se ve</div>
+    <h2 class="section-heading">Recién horneado, listo para servir</h2>
+    <div class="gallery">
+      <figure>
+        <img src="IMG-20260813-WA0043.jpg" alt="Queque de sangrecita entero, recién desmoldado">
+        <figcaption>Recién desmoldado</figcaption>
+      </figure>
+      <figure>
+        <img src="IMG-20260813-WA0035.jpg" alt="Queque de sangrecita cortado mostrando la miga">
+        <figcaption>Corte mostrando la miga</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="section-title">Antes de pedir</div>
+    <h2 class="section-heading">Preguntas frecuentes</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3>¿Con cuánta anticipación debo pedir?</h3>
+        <p>Se recomienda pedir con al menos un día de anticipación, ya que cada queque se hornea al momento del pedido.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Hacen entrega a domicilio?</h3>
+        <p>Sí, se entrega a domicilio en la zona de Tumpa. Coordina el horario de entrega al enviar tu pedido.</p>
+      </div>
+      <div class="faq-item">
+        <h3>¿Cómo se conserva el queque?</h3>
+        <p>Se recomienda mantenerlo tapado a temperatura ambiente por un par de días, o refrigerado si prefieres que dure más tiempo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pedido">
+    <div class="order-card">
+      <h2>Haz tu pedido</h2>
+      <p>Completa el formulario con tus datos y te confirmaremos la entrega. Tu pedido llega directo por correo, sin necesidad de escribir por WhatsApp.</p>
+
+      <form class="order-form" action="https://formsubmit.co/bayronromeromundaca@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nuevo pedido — Queque de Sangrecita">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_template" value="table">
+
+        <div>
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="Nombre" placeholder="Tu nombre" required>
+        </div>
+        <div>
+          <label for="telefono">Teléfono de contacto</label>
+          <input type="tel" id="telefono" name="Teléfono" placeholder="999 999 999" required>
+        </div>
+
+        <div class="full">
+          <label for="direccion">Dirección de entrega en Tumpa</label>
+          <input type="text" id="direccion" name="Dirección" placeholder="Calle, número, referencia" required>
+        </div>
+
+        <div>
+          <label for="cantidad">Cantidad de queques</label>
+          <input type="number" id="cantidad" name="Cantidad" min="1" value="1" required>
+        </div>
+        <div>
+          <label for="fecha">Fecha deseada de entrega</label>
+          <input type="date" id="fecha" name="Fecha de entrega" required>
+        </div>
+
+        <div class="full">
+          <label for="mensaje">Comentarios adicionales (opcional)</label>
+          <textarea id="mensaje" name="Comentarios" placeholder="Horario preferido, alguna indicación extra, etc."></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary">Enviar pedido</button>
+          <span class="order-note">Al enviar, tu pedido llega directo a nuestro correo y te confirmaremos la entrega.</span>
+        </div>
+      </form>
+
+      <div class="contact-alt">
+        Entrega a domicilio en Tumpa · Queque entero S/ 25
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Queque de Sangrecita · Hecho a pedido en Tumpa
+  </footer>
+</div>
+
+<a href="#pedido" class="cart-fab" aria-label="Ir a hacer mi pedido">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="21" r="1"></circle>
+    <circle cx="20" cy="21" r="1"></circle>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  </svg>
+  <span class="cart-badge">1</span>
+</a>
+
+</body>
+</html>
